@@ -4,16 +4,23 @@ import { Route } from 'react-router-dom';
 
 // Pages
 
-import { ExamplePage } from './pages';
+import { Stylesheet } from 'declarations';
 
 class App extends React.Component {
   public render() {
     return (
-      <div className="App">
-				<Route exact path='/' component={ExamplePage} />
+      <div style={styles.container}>
       </div>
     );
   }
 }
 
 export default App;
+
+const styles:Stylesheet = {
+  container: {
+		width: '100%',
+		height: '100%',
+		display: 'flex',
+  }
+};
