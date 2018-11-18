@@ -1,5 +1,5 @@
-import ExampleComponent from './ExampleComponent';
+import Navbar from './Navbar';
 
 export {
-	ExampleComponent,
+	Navbar,
 };
