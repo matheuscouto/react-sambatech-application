@@ -1,26 +1,30 @@
 import * as React from 'react';
-
-import { Route } from 'react-router-dom';
-
-// Pages
-
+import { Route, RouteComponentProps, withRouter } from 'react-router-dom';
 import { Stylesheet } from 'declarations';
 
-class App extends React.Component {
+import { UploadPage } from './pages';
+import { Navbar } from './components';
+
+class App extends React.Component<RouteComponentProps> {
   public render() {
     return (
       <div style={styles.container}>
+        <Navbar {...this.props} />
+				<Route exact path='/' component={UploadPage} />
       </div>
     );
-  }
+	}
 }
 
-export default App;
+export default withRouter(App);
 
 const styles:Stylesheet = {
   container: {
-		width: '100%',
-		height: '100%',
+		alignSelf: 'center',
+		marginTop: '10%',
 		display: 'flex',
-  }
-};
+		flexDirection: 'column',
+		alignItems: 'flex-start',
+		justifyContent: 'center',
+  },
+}
