@@ -1,5 +1,5 @@
-import ExamplePage from './ExamplePage';
+import UploadPage from './Upload';
 
 export {
-	ExamplePage,
+	UploadPage,
 };

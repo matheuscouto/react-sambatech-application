@@ -1,5 +1,7 @@
-import ExampleComponent from './ExampleComponent';
+import Navbar from './Navbar';
+import DropZone from './DropZone';
 
 export {
-	ExampleComponent,
+	Navbar,
+	DropZone,
 };
