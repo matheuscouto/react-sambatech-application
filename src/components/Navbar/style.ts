@@ -18,6 +18,7 @@ const styles:Stylesheet = {
 	navbarWrapper: {
 		display: 'flex',
 		flexDirection: 'column',
+		minHeight: 34,
 	},
 	navbarItem: {
 		fontWeight: 500,
