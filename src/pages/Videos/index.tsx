@@ -1,13 +1,15 @@
 import * as React from 'react';
 import { Stylesheet } from 'declarations';
 import { VideoList, VideoOnDisplay } from '../../components';
-
-class Videos extends React.PureComponent<{}> {
+import { RouteComponentProps } from 'react-router-dom';
+// tslint:disable
+class Videos extends React.PureComponent<RouteComponentProps<{ id?: string }>> {
 	public render() {
+		const { id } = this.props.match.params;
 		return(
 			<div style={styles.container}>
 				<VideoOnDisplay />
-				<VideoList />
+				<VideoList videoIdToDisplay={id} history={this.props.history} />
 			</div>
 		);
 	}

@@ -11,6 +11,7 @@ import { IRootState } from 'src/store';
 import { connect } from 'react-redux';
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
 import VideoLoader from './VideoLoader';
+import { History } from 'history';
 
 interface IState {
   isLoadingVideos: boolean;
@@ -24,10 +25,11 @@ interface IState {
   pagination: {
     current: number,
     total: number,
-  }
+  },
+  
 }
 
-class VideoList extends React.PureComponent<IMapStateToProps & IMapDispatchToProps, IState> {
+class VideoList extends React.PureComponent<IMapStateToProps & IMapDispatchToProps & { videoIdToDisplay?: string, history: History<any> }, IState> {
   public state:IState = {
     isLoadingVideos: true,
     videoList: [],
@@ -63,6 +65,16 @@ class VideoList extends React.PureComponent<IMapStateToProps & IMapDispatchToPro
         })
       })
     })
+
+    const { videoIdToDisplay } = this.props
+
+    if(videoIdToDisplay && ((this.props.videoOnDisplay && this.props.videoOnDisplay.id !== videoIdToDisplay) || !this.props.videoOnDisplay)) {
+      database().ref(`/videos/${videoIdToDisplay}/high`).once('value').then((videoUrlSnapshot) => {
+        if(videoUrlSnapshot.val()) {
+          this.props.putVideoOnDisplay(videoUrlSnapshot.val(), videoIdToDisplay)
+        }
+      })
+    }
   }
 
   public componentWillUnmount() {
@@ -155,6 +167,7 @@ class VideoList extends React.PureComponent<IMapStateToProps & IMapDispatchToPro
 
   private handlePutVideoOnDisplay = (videoId: string, videoUrl: string) => () => {
     this.props.putVideoOnDisplay(videoUrl, videoId)
+    this.props.history.push(`/videos/${videoId}`)
   }
 
   private handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

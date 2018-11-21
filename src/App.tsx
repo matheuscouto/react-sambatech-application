@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Route, RouteComponentProps, withRouter } from 'react-router-dom';
+import { Route, RouteComponentProps, withRouter, Switch } from 'react-router-dom';
 import { Stylesheet } from 'declarations';
 
 import { UploadPage, VideosPage } from './pages';
@@ -10,8 +10,10 @@ class App extends React.Component<RouteComponentProps> {
     return (
       <div style={styles.container}>
         <Navbar {...this.props} />
-				<Route exact path='/' component={UploadPage} />
-				<Route exact path='/videos' component={VideosPage} />
+        <Switch>
+          <Route exact path='/' component={UploadPage} />
+          <Route path='/videos/:id?' component={VideosPage} />
+        </Switch>
       </div>
     );
 	}
