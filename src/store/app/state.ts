@@ -12,6 +12,7 @@ const actionCreator = actionCreatorFactory('APP::STATE');
 export const init = actionCreator('INIT');
 export const uploadFiles = actionCreator.async<FormData, undefined, any>('UPLOAD_FILES');
 export const updateUploadFilesProgress = actionCreator<number>('UPDATE_UPLOAD_PROGRESS');
+export const resetUpload = actionCreator('RESET_UPLOAD_UI');
 
 // STATE
 
@@ -39,6 +40,10 @@ export default reducerWithInitialState(INITIAL_STATE)
 	.case(uploadFiles.done, (state: IState) => ({
 		...state,
 		uploadProgress: 100,
+	}))
+	.case(resetUpload, (state: IState) => ({
+		...state,
+		uploadProgress: undefined,
 	}))
 	.build();
 
