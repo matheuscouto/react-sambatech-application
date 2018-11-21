@@ -1,6 +1,6 @@
 {
-  "name": "my-react-redux-firebase-boilerplate",
-  "version": "0.2.0",
+  "name": "react-sambatech-application",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
