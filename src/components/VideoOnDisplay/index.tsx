@@ -6,24 +6,27 @@ import { IRootState } from '../../store';
 
 interface IState {
 	videoOnDisplayStyle: React.CSSProperties;
+	windowWidth?: number;
 }
 
 export class VideoOnDisplay extends React.PureComponent<IMapStateToProps, IState> {
 	
-	public state = {
+	public state:IState = {
 		videoOnDisplayStyle: styles.videoOnDisplay,
+		windowWidth: 200
 	}
 
 	private videoPlayer:any;
 
 	public componentDidMount() {
+		window.addEventListener("resize", this.updateDimensions);
 		const { videoOnDisplay } = this.props;
 		if(videoOnDisplay) {
 			this.setState(state => ({
 				...state,
 				videoOnDisplayStyle: {
 					...state.videoOnDisplayStyle,
-					height: 'calc(733px*9/16)',
+					height: `calc(${window.innerWidth-120}px*9/16)`,
 					marginBottom: 60,
 				},
 			}))
@@ -41,7 +44,7 @@ export class VideoOnDisplay extends React.PureComponent<IMapStateToProps, IState
 				...state,
 				videoOnDisplayStyle: {
 					...state.videoOnDisplayStyle,
-					height: 'calc(733px*9/16)',
+					height: `calc(${window.innerWidth-100}px*9/16)`,
 					marginBottom: 60,
 				},
 			}))
@@ -65,7 +68,7 @@ export class VideoOnDisplay extends React.PureComponent<IMapStateToProps, IState
       <div style={videoOnDisplayStyle} >
 				{
 					videoOnDisplay
-					? <video width="100%" controls ref={ ref => this.videoPlayer = ref} >
+					? <video width="100%" controls ref={ ref => this.videoPlayer = ref} autoPlay >
 							<source src={videoOnDisplay.url} type="video/mp4" />
 							Unfortunately, your browser do not support videos.
 						</video>
@@ -74,6 +77,19 @@ export class VideoOnDisplay extends React.PureComponent<IMapStateToProps, IState
       </div>
 		);
 	}
+
+	private updateDimensions = () => {
+		if(this.props.videoOnDisplay) {
+			this.setState(state => ({
+				...state,
+				videoOnDisplayStyle: {
+					...state.videoOnDisplayStyle,
+					height: `calc(${window.innerWidth-100}px*9/16)`,
+				},
+			}))
+		}
+	}
+	
 }
 /* *************************** */
 //      MAP STATE TO PROPS     //

@@ -20,10 +20,11 @@ export default Videos;
 
 const styles:Stylesheet = {
 	container: {
-		width: 753, 
+		maxWidth: 753, 
 		borderColor:'transparent',
 		borderWidth: 0,
 		borderStyle: 'solid',
-		justifyContent: 'flex-start'
+		justifyContent: 'flex-start',
+		width: '100%',
 	},
 }
