@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styles, { navItemTransitions, navbarTransitions } from './style';
 
 import { Stylesheet } from 'declarations';
@@ -10,7 +10,7 @@ interface IState {
   navItemStyles: Stylesheet,
 }
 
-class Navbar extends React.Component<RouteComponentProps, IState> {
+class Navbar extends React.Component<{location: string}, IState> {
   public state:IState = {
 		underlineNavbar: styles.underlineNavbar,
 		navItemStyles: {
@@ -24,8 +24,8 @@ class Navbar extends React.Component<RouteComponentProps, IState> {
     return (
       <div style={styles.navbarWrapper}>
         <div style={styles.navbar}>
-          <NavItem style={navItemStyles.upload} to="/">UPLOAD</NavItem>
-          <NavItem style={navItemStyles.videos} to="/videos">VIDEOS</NavItem>
+          <Link style={navItemStyles.upload} to="/">UPLOAD</Link>
+          <Link style={navItemStyles.videos} to="/videos">VIDEOS</Link>
         </div>
         <div style={underlineNavbar} />
       </div>
@@ -33,7 +33,7 @@ class Navbar extends React.Component<RouteComponentProps, IState> {
   }
 
 	public componentDidMount() {
-    let currentSession = this.props.location.pathname.replace('/','')
+    let currentSession = this.props.location.replace('/','')
     if(currentSession === '') {currentSession = 'upload'} 
 		this.setState((state) => ({
 			...state,
@@ -48,12 +48,12 @@ class Navbar extends React.Component<RouteComponentProps, IState> {
     }))
   }
 
-  public componentDidUpdate(oldProps: RouteComponentProps ) {
-    if(this.props.location.pathname !== oldProps.location.pathname) {
+  public componentDidUpdate(oldProps: { location: string } ) {
+    if(this.props.location !== oldProps.location) {
 
-      let currentSession = this.props.location.pathname.replace('/','')
+      let currentSession = this.props.location.replace('/','')
       if(currentSession === '') {currentSession = 'upload'} 
-      let previousSession = oldProps.location.pathname.replace('/','')
+      let previousSession = oldProps.location.replace('/','')
       if(previousSession === '') {previousSession = 'upload'} 
 
       this.setState((state) => ({
@@ -71,19 +71,5 @@ class Navbar extends React.Component<RouteComponentProps, IState> {
     }
   }
 }
-
-interface INavItemProps {
-  children: React.ReactNode,
-  style: React.CSSProperties,
-  onClick?: () => void,
-  to: string
-
-}
-const NavItem:React.FunctionComponent<INavItemProps> = ({
-  children,
-  onClick,
-  style,
-  to
-}) => <Link to={to} onClick={onClick} style={style}>{children}</Link>
 
 export default Navbar;
