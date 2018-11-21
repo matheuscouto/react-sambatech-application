@@ -13,12 +13,18 @@ export const init = actionCreator('INIT');
 export const uploadFiles = actionCreator.async<FormData, undefined, any>('UPLOAD_FILES');
 export const updateUploadFilesProgress = actionCreator<number>('UPDATE_UPLOAD_PROGRESS');
 export const resetUpload = actionCreator('RESET_UPLOAD_UI');
+export const putVideoOnDisplay = actionCreator<{url: string, id: string}>('PUT_VIDEO_ON_DISPLAY')
+export const removeVideoFromDisplay = actionCreator('REMOVE_VIDEO_FROM_DISPLAY');
 
 // STATE
 
 export interface IState {
 	initialized: boolean;
 	uploadProgress?: number;
+	videoOnDisplay?: {
+		url: string,
+		id: string,
+	}
 }
 
 const INITIAL_STATE: IState = {
@@ -26,6 +32,8 @@ const INITIAL_STATE: IState = {
 };
 
 export const selectUploadProgress: Selector<number | undefined> = ({ appState }) => appState.uploadProgress;
+export const selectSelectVideoOnDisplay: Selector<{url: string, id: string} | undefined> = ({ appState }) => appState.videoOnDisplay;
+
 // REDUCER
 
 export default reducerWithInitialState(INITIAL_STATE)
@@ -44,6 +52,14 @@ export default reducerWithInitialState(INITIAL_STATE)
 	.case(resetUpload, (state: IState) => ({
 		...state,
 		uploadProgress: undefined,
+	}))
+	.case(putVideoOnDisplay, (state: IState, videoOnDisplay) => ({
+		...state,
+		videoOnDisplay,
+	}))
+	.case(removeVideoFromDisplay, (state: IState) => ({
+		...state,
+		videoOnDisplay: undefined,
 	}))
 	.build();
 
