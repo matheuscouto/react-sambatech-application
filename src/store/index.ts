@@ -18,7 +18,7 @@ const rootReducer = combineReducers<IRootState>({
 
 // COMBINED EPICS
 
-const rootEpic = combineEpics(
+const rootEpic: any = combineEpics(
 	appStateEpics,
 );
 
