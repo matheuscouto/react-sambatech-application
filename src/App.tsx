@@ -5,6 +5,9 @@ import { Stylesheet } from 'declarations';
 import { UploadPage, VideosPage } from './pages';
 import { Navbar } from './components';
 
+//  COMPONENT: App
+//  ROLE: Render the whole application being the root component
+
 class App extends React.Component<RouteComponentProps> {
   public render() {
     return (

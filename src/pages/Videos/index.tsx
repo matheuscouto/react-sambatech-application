@@ -2,7 +2,11 @@ import * as React from 'react';
 import { Stylesheet } from 'declarations';
 import { VideoList, VideoOnDisplay } from '../../components';
 import { RouteComponentProps } from 'react-router-dom';
-// tslint:disable
+
+//  COMPONENT: Videos
+//  ROLE: Render both VideoOnDisplay and VideoList components
+//				being the main higher component of this session
+
 class Videos extends React.PureComponent<RouteComponentProps<{ id?: string }>> {
 	public render() {
 		const { id } = this.props.match.params;

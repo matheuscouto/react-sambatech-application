@@ -6,6 +6,10 @@ import { selectUploadProgress, uploadFiles, resetUpload } from 'src/store/app/st
 import { IRootState } from 'src/store';
 import { Dispatch } from 'redux';
 
+//  COMPONENT: Upload
+//  ROLE: Upload the files given by DropZone and
+//				fetch the uploadProgress to it's child DropZone
+
 class Upload extends React.PureComponent<IMapDispatchToProps & IMapStateToProps> {
 
 	public render() {

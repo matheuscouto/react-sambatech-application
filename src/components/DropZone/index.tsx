@@ -6,14 +6,15 @@ import { IoIosCloudUpload, IoIosCheckmark } from 'react-icons/io';
 import { cancelUpload } from '../../services/api';
 import Modal from 'react-responsive-modal';
 
+
 interface IProps {
-  uploadProgress?: number;
+	uploadProgress?: number;
 	uploadFiles: (files: any[], filename: string) => void;
 	resetUpload: () => void;
 }
 
 interface IState {
-  dropZoneActive: boolean,
+	dropZoneActive: boolean,
   dropzone: React.CSSProperties,
   circleWrapper: React.CSSProperties,
   uploadIcon: React.CSSProperties,
@@ -27,6 +28,14 @@ interface IState {
 	filename: string,
 	didDropUnsuportedFileType: boolean,
 }
+
+//  COMPONENT: DropZone
+//  ROLE: Respond to the users interaction to upload files and
+//				handle the upload files to i'ts parent.
+//
+//	I chose to separate DropZone concerts from it's parent so that 
+//	it only has to deal with style transitions and user feedback,
+//	not the upload itself.
 
 class DropZoneComponent extends React.PureComponent<IProps, IState> {
 	public state: IState = {
@@ -176,6 +185,10 @@ class DropZoneComponent extends React.PureComponent<IProps, IState> {
 		this.props.resetUpload();
 		this.uploadResetTransaction();
 	}
+
+	/* ********************************* */
+	//		UI STATE TRANSITION METHODS	   //	
+	/* ********************************* */
 
 	private isUploadingTransition = () => this.setState((state) => ({
 		...state, 

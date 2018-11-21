@@ -9,6 +9,14 @@ interface IState {
 	windowWidth?: number;
 }
 
+//  COMPONENT: VideoOnDisplay
+//  ROLE: Receive the url of the users selected video and
+//				use it to display the video to the user.
+//
+//	Also it deals with the UI transaction when the user
+//	selects the video.
+
+
 export class VideoOnDisplay extends React.PureComponent<IMapStateToProps, IState> {
 	
 	public state:IState = {
@@ -89,8 +97,8 @@ export class VideoOnDisplay extends React.PureComponent<IMapStateToProps, IState
 			}))
 		}
 	}
-	
 }
+
 /* *************************** */
 //      MAP STATE TO PROPS     //
 /* *************************** */

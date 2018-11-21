@@ -10,6 +10,12 @@ interface IState {
   navItemStyles: Stylesheet,
 }
 
+//  COMPONENT: Navbar
+//  ROLE:      Help the user to navigate between the two pages: Upload and Videos.
+//
+//  It's logic uses the location props to animate the Links when it mounts and
+//  when the user navigate between the pages.
+
 class Navbar extends React.Component<{location: string}, IState> {
   public state:IState = {
 		underlineNavbar: styles.underlineNavbar,
@@ -32,6 +38,8 @@ class Navbar extends React.Component<{location: string}, IState> {
     );
   }
 
+  //
+  //
 	public componentDidMount() {
     let currentSession = this.props.location.replace('/','').split('/')[0]
     if(currentSession === '') {currentSession = 'upload'} 
