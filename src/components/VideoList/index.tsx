@@ -6,6 +6,7 @@ import VideoLoader from './VideoLoader';
 import styles from './styles';
 import VideoItem from './VideoItem';
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
+import Modal from 'react-responsive-modal';
 
 interface IState {
   isLoadingVideos: boolean;
@@ -13,7 +14,10 @@ interface IState {
   pagination: {
     current: number,
     total: number,
-  }
+  };
+  isArquivingVideo: boolean;
+  arquivingVideoTitle?: string;
+  arquivingVideoId?: string;
 }
 
 class VideoList extends React.PureComponent<{},IState> {
@@ -23,7 +27,8 @@ class VideoList extends React.PureComponent<{},IState> {
     pagination: {
       current: 1,
       total: 1,
-    }
+    },
+    isArquivingVideo: false,
   }
 
   private dbPath = database().ref('/videos').orderByChild('creationTimeOrder');
@@ -55,7 +60,7 @@ class VideoList extends React.PureComponent<{},IState> {
     this.dbPath.off('value');
   }
 	public render() {
-    const { isLoadingVideos, videoList, pagination } = this.state;
+    const { isLoadingVideos, videoList, pagination, isArquivingVideo, arquivingVideoTitle, arquivingVideoId } = this.state;
 		return(
       <div style={styles.videoListWrapper}>
         <div style={styles.paginationButtonsWrapper}>
@@ -72,10 +77,18 @@ class VideoList extends React.PureComponent<{},IState> {
                           key={videoItem.id}
                           title={videoItem.name}
                           status={videoItem.status}
+                          arquiveVideo={this.handleOpenArquiveVideoModal(videoItem.id)}
                           thumbnails={videoItem.thumbnails}
                         />
                       ))
         }
+        <Modal open={isArquivingVideo} styles={styles.modal} onClose={this.handleCloseArquiveVideoModal} center>
+          <h2 style={styles.modalTitle}>Are you sure you want to delete "{arquivingVideoTitle}" ?</h2>
+          <div style={styles.modalOptionsWrapper}>
+            <p style={styles.modalOptionCancel} onClick={this.handleCloseArquiveVideoModal}>CANCEL</p>
+            <p style={styles.modalOptionConfirm} onClick={this.handleArquiveVideo(arquivingVideoId!)}>CONFIRM</p>
+          </div>
+        </Modal>
         </div>
       </div>
 		);
@@ -119,6 +132,36 @@ class VideoList extends React.PureComponent<{},IState> {
     })
   }
 
+  private handleOpenArquiveVideoModal = (videoId: string) => (videoTitle: string) => () => {
+    this.setState(state => ({
+      ...state,
+      isArquivingVideo: true,
+      arquivingVideoTitle: videoTitle,
+      arquivingVideoId: videoId,
+    }))
+  }
+
+  private handleCloseArquiveVideoModal = () => {
+    this.setState(state => ({
+      ...state,
+      isArquivingVideo: false,
+    }))
+  }
+
+  private handleArquiveVideo = (videoId: string) => () => {
+    database().ref(`/videos/${videoId}`).once('value').then((videoItemSnapshot) => {
+      let updates: any = {};
+      updates[`/videos/${videoId}`] = null;
+      updates[`/arquivedVideos/${videoId}`] = videoItemSnapshot.val();
+      database().ref('/videosCount').once('value').then((videosCountSnapshot) => {
+        const videosCount = videosCountSnapshot.val();
+        updates[`/videosCount`] = videosCount - 1;
+        database().ref().update(updates).then(() => {
+          this.handleCloseArquiveVideoModal()
+        })
+      })
+    })
+  }
 }
 
 export default VideoList;

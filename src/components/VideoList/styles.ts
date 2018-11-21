@@ -20,17 +20,24 @@ const styles:Stylesheet = {
 		backgroundColor: 'rgb(190, 190, 190)',
 		boxShadow: '0px 18px 55px -12px rgba(0,0,0,0.35)',
 		marginBottom: 20,
-		cursor: 'pointer',
 		position: 'relative',
 		overflow: 'hidden',
 	},
 	thumbnailHoover: {
 		width: '0',
 		height: '100%',
-		backgroundColor: 'black',
-		opacity: 0.3,
+		backgroundColor: 'rgba(0,0,0,0.3)',
+		opacity: 0,
 		transition: "all 0.2s ease-out",
-		zIndex: 2
+		zIndex: 2,
+		display: 'flex',
+		flexDirection: 'column',
+		justifyContent: 'space-around',
+		alignItems: 'center',
+		cursor: 'arrow',
+	},
+	thumbnailHooverIcons: {
+		cursor: 'pointer',
 	},
 	title: {
 		fontSize: 15,
@@ -56,6 +63,64 @@ const styles:Stylesheet = {
 		position: 'absolute',
 		width: '100%',
 		height: 'auto',
+		cursor: 'pointer',
+	},
+	modal: {
+		display: 'flex',
+		flexDirection: 'column',
+	},
+	modalTitle: {
+		marginRight: 32,
+		marginTop: 2
+	},
+	modalOptionsWrapper: {
+		display: 'flex',
+		justifyContent: 'flex-end',
+		marginTop: 15,
+	},
+	modalOptionConfirm: {
+		color: '#2DCC70',
+		fontSize: 13,
+		fontWeight: 600,
+		cursor: 'pointer'
+	},
+	modalOptionCancel: {
+		color: '#FF5C54',
+		fontSize: 13,
+		fontWeight: 600,
+		marginRight: 15,
+		cursor: 'pointer'
+	},
+	editInput: {
+    width: '100%',
+    height: 32,
+    marginTop: 16,
+    marginBottom: 9,
+    borderWidth: 1,
+    borderRadius: 2,
+    borderStyle: 'solid',
+		borderColor: 'gray',
+		boxSizing: 'border-box',
+		paddingLeft: 10,
+		fontSize: 14,
+	},
+	videoListWrapper: {
+		display: 'flex',
+		flexDirection: 'column',
+	},
+	paginationButtonsWrapper: {
+		display: 'flex',
+		justifyContent: 'flex-end',
+		marginBottom: 20,
+		alignItems: 'center',
+	},
+	paginationButton: {
+		marginRight: 20,
+		cursor: 'pointer',
+	},
+	paginationButtonsPage: {
+		fontSize: 12,
+    marginRight: 20,
 	}
 }
 

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styles from './styles';
+import { IoMdTrash } from 'react-icons/io';
 
 import { ScaleLoader } from 'react-spinners';
 
@@ -12,20 +13,23 @@ interface IVideoItemProps {
 	title: string,
 	status: string,
 	thumbnails?: string[],
+	arquiveVideo: (videoTitle: string) => () => void,
 }
 
 class VideoItem extends React.PureComponent<IVideoItemProps, IVideoItemState> {
 	public state = {
-		thumbnailHoover: styles.thumbnailHoover
+		thumbnailHoover: styles.thumbnailHoover,
 	}
 
 	public render () {
 		const { thumbnailHoover } = this.state;
-		const { onSelectVideo, title, status, thumbnails } = this.props;
+		const { onSelectVideo, title, status, thumbnails, arquiveVideo } = this.props;
 		return (
 			<div style={styles.videoItemWrapper}>
 				<div style={styles.thumbnail} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
-					<div style={thumbnailHoover} />
+					<div style={thumbnailHoover}>
+						<IoMdTrash color="white" size={23} style={styles.thumbnailHooverIcons} onClick={arquiveVideo(title)} />
+					</div>
 					{
 						status==='encoding' && 
 						<div style={styles.encoding}>
@@ -58,6 +62,7 @@ class VideoItem extends React.PureComponent<IVideoItemProps, IVideoItemState> {
 			thumbnailHoover: {
 				...state.thumbnailHoover,
 				width: '30%',
+				opacity: 1
 			}
 		}))
 	}
@@ -68,6 +73,7 @@ class VideoItem extends React.PureComponent<IVideoItemProps, IVideoItemState> {
 			thumbnailHoover: {
 				...state.thumbnailHoover,
 				width: '0',
+				opacity: 0
 			}
 		}))
 	}
