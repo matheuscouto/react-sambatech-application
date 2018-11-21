@@ -6,7 +6,11 @@ import { of } from 'rxjs';
 import { uploadFiles$ } from '../../services/api';
 import { Epic, Selector } from '..';
 
-// ACTIONS
+/* **************** */
+//      ACTIONS     //
+/* **************** */
+
+// I use typescript-fsa to provide easily type-safe action creation
 
 const actionCreator = actionCreatorFactory('APP::STATE');
 export const init = actionCreator('INIT');
@@ -16,7 +20,9 @@ export const resetUpload = actionCreator('RESET_UPLOAD_UI');
 export const putVideoOnDisplay = actionCreator<{url: string, id: string}>('PUT_VIDEO_ON_DISPLAY')
 export const removeVideoFromDisplay = actionCreator('REMOVE_VIDEO_FROM_DISPLAY');
 
-// STATE
+/* ********************** */
+//      INITIAL STATE     //
+/* ********************** */
 
 export interface IState {
 	initialized: boolean;
@@ -31,10 +37,18 @@ const INITIAL_STATE: IState = {
 	initialized: false,
 };
 
+/* ****************** */
+//      SELECTORS     //
+/* ****************** */
+
+// The selectors provide an optmized way to retreive informations from the store
+
 export const selectUploadProgress: Selector<number | undefined> = ({ appState }) => appState.uploadProgress;
 export const selectSelectVideoOnDisplay: Selector<{url: string, id: string} | undefined> = ({ appState }) => appState.videoOnDisplay;
 
-// REDUCER
+/* **************** */
+//      REDUCER     //
+/* **************** */
 
 export default reducerWithInitialState(INITIAL_STATE)
 	.case(init, (state: IState) => ({
@@ -63,7 +77,14 @@ export default reducerWithInitialState(INITIAL_STATE)
 	}))
 	.build();
 
-// EFFECTS
+/* **************** */
+//      EFFECTS     //
+/* **************** */
+
+// 	To handle async requests I use redux-observable, so every action creates a rxjs Observable.
+// 	Throw the Epic I can pipe this action and use all rxjs resources. In this case I'm starting
+//	the upload request and listening to the uploadProgress to provide it to the whole application.
+//	When it's done, it dispatches the uploadFiles.done action.
 
 const uploadFilesEpic: Epic = (action$) => action$.pipe(
 	filter(uploadFiles.started.match),

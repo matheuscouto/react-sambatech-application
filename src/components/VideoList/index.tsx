@@ -25,8 +25,18 @@ interface IState {
     current: number,
     total: number,
   },
-  
 }
+ 
+//  COMPONENT: VideoList
+//  ROLE: Interact directly with FirebaseDatabase for two reasons:
+//  1) Fetch, order and paginate the list of uploaded videos to render
+//	2) Arquive or edit videos
+//
+//  Also it shows a placeholder waiting for Firebases response.
+//
+//  Every other method is just a matter of opening and closing modals
+//  for video archiving confirmation and video title editing.
+
 
 export class VideoList extends React.PureComponent<IMapStateToProps & IMapDispatchToProps & { videoIdToDisplay?: string, pushHistory: (path: string) => void }, IState> {
   public state:IState = {

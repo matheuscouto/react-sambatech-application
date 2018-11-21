@@ -19,6 +19,13 @@ interface IVideoItemProps {
 	editVideoTitle: (videoTitle: string) => () => void,
 }
 
+//  COMPONENT: VideoItem
+//  ROLE: Renders a single video placeholder showing it's current status.
+//
+//	Also allow the user to arquive the video or update it's current title
+//	using the methods `arquiveVideo` and `editVideoTitle` provided by the VideoList component.
+//	And last, permit the user to choose a single video to play at VideoOnDisplay component.
+
 class VideoItem extends React.PureComponent<IVideoItemProps, IVideoItemState> {
 	public state = {
 		thumbnailHoover: styles.thumbnailHoover,

@@ -3,6 +3,13 @@ import { Observable } from 'rxjs';
 
 export let cancelUpload: () => void;
 
+//	Using rxjs I create and Observable from the request
+//	that provides the uploadProgress on every change.
+//
+//	I'm using redux-observable lib to handle this request
+//	and serve this information to whatever component that
+//	wants to make use of it.
+
 export function uploadFiles$(formData: FormData): Observable<number> {
 	const CancelToken = axios.CancelToken;
 	const source = CancelToken.source();
