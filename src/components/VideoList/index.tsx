@@ -18,6 +18,9 @@ interface IState {
   isArquivingVideo: boolean;
   arquivingVideoTitle?: string;
   arquivingVideoId?: string;
+  newVideoTitle: string;
+  isEditingVideoTitle: boolean;
+  editingVideoTitleId?: string;
 }
 
 class VideoList extends React.PureComponent<{},IState> {
@@ -29,6 +32,8 @@ class VideoList extends React.PureComponent<{},IState> {
       total: 1,
     },
     isArquivingVideo: false,
+    isEditingVideoTitle: false,
+    newVideoTitle: '',
   }
 
   private dbPath = database().ref('/videos').orderByChild('creationTimeOrder');
@@ -60,7 +65,7 @@ class VideoList extends React.PureComponent<{},IState> {
     this.dbPath.off('value');
   }
 	public render() {
-    const { isLoadingVideos, videoList, pagination, isArquivingVideo, arquivingVideoTitle, arquivingVideoId } = this.state;
+    const { editingVideoTitleId, isEditingVideoTitle, newVideoTitle, isLoadingVideos, videoList, pagination, isArquivingVideo, arquivingVideoTitle, arquivingVideoId } = this.state;
 		return(
       <div style={styles.videoListWrapper}>
         <div style={styles.paginationButtonsWrapper}>
@@ -79,6 +84,7 @@ class VideoList extends React.PureComponent<{},IState> {
                           status={videoItem.status}
                           arquiveVideo={this.handleOpenArquiveVideoModal(videoItem.id)}
                           thumbnails={videoItem.thumbnails}
+                          editVideoTitle={this.handleOpenEditVideoTitleModal(videoItem.id)}
                         />
                       ))
         }
@@ -87,6 +93,14 @@ class VideoList extends React.PureComponent<{},IState> {
           <div style={styles.modalOptionsWrapper}>
             <p style={styles.modalOptionCancel} onClick={this.handleCloseArquiveVideoModal}>CANCEL</p>
             <p style={styles.modalOptionConfirm} onClick={this.handleArquiveVideo(arquivingVideoId!)}>CONFIRM</p>
+          </div>
+        </Modal>
+        <Modal open={isEditingVideoTitle} styles={styles.modal} onClose={this.handleCloseEditVideoTitleModal} center>
+          <h2 style={styles.modalTitle}>What's going to be the new title?</h2>
+          <input style={styles.editInput} value={newVideoTitle} onChange={this.handleInputChange} />
+          <div style={styles.modalOptionsWrapper}>
+            <p style={styles.modalOptionCancel} onClick={this.handleCloseEditVideoTitleModal}>CANCEL</p>
+            <p style={styles.modalOptionConfirm} onClick={this.handleEditVideoTitle(editingVideoTitleId!)}>CONFIRM</p>
           </div>
         </Modal>
         </div>
@@ -130,6 +144,36 @@ class VideoList extends React.PureComponent<{},IState> {
         }))
       })
     })
+  }
+
+  private handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const title = e.target.value;
+    this.setState(state => ({
+      ...state,
+      newVideoTitle: title,
+    }))
+  }
+
+  private handleOpenEditVideoTitleModal = (videoId: string) => (videoTitle: string) => () => {
+    this.setState(state => ({
+      ...state,
+      isEditingVideoTitle: true,
+      newVideoTitle: videoTitle,
+      editingVideoTitleId: videoId,
+    }))
+  }
+
+  private handleCloseEditVideoTitleModal = () => {
+    this.setState(state => ({
+      ...state,
+      isEditingVideoTitle: false,
+    }))
+  }
+
+  private handleEditVideoTitle = (videoId: string) => () => {
+    const { newVideoTitle } = this.state;
+    database().ref(`/videos/${videoId}/name`).set(newVideoTitle);
+    this.handleCloseEditVideoTitleModal();
   }
 
   private handleOpenArquiveVideoModal = (videoId: string) => (videoTitle: string) => () => {

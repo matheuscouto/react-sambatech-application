@@ -14,6 +14,7 @@ interface IVideoItemProps {
 	status: string,
 	thumbnails?: string[],
 	arquiveVideo: (videoTitle: string) => () => void,
+	editVideoTitle: (videoTitle: string) => () => void,
 }
 
 class VideoItem extends React.PureComponent<IVideoItemProps, IVideoItemState> {
@@ -23,12 +24,13 @@ class VideoItem extends React.PureComponent<IVideoItemProps, IVideoItemState> {
 
 	public render () {
 		const { thumbnailHoover } = this.state;
-		const { onSelectVideo, title, status, thumbnails, arquiveVideo } = this.props;
+		const { onSelectVideo, title, status, thumbnails, arquiveVideo, editVideoTitle } = this.props;
 		return (
 			<div style={styles.videoItemWrapper}>
 				<div style={styles.thumbnail} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
 					<div style={thumbnailHoover}>
 						<IoMdTrash color="white" size={23} style={styles.thumbnailHooverIcons} onClick={arquiveVideo(title)} />
+						<FaEdit color="white" size={18} style={styles.thumbnailHooverIcons} onClick={editVideoTitle(title)} />
 					</div>
 					{
 						status==='encoding' && 
