@@ -1,5 +1,7 @@
 import * as React from 'react';
 import styles from './styles';
+import { IoMdTrash } from 'react-icons/io';
+import { FaEdit } from 'react-icons/fa';
 
 import { ScaleLoader } from 'react-spinners';
 
@@ -12,24 +14,29 @@ interface IVideoItemProps {
 	title: string,
 	status: string,
 	thumbnails?: string[],
+	arquiveVideo: (videoTitle: string) => () => void,
+	editVideoTitle: (videoTitle: string) => () => void,
 }
 
 class VideoItem extends React.PureComponent<IVideoItemProps, IVideoItemState> {
 	public state = {
-		thumbnailHoover: styles.thumbnailHoover
+		thumbnailHoover: styles.thumbnailHoover,
 	}
 
 	public render () {
 		const { thumbnailHoover } = this.state;
-		const { onSelectVideo, title, status, thumbnails } = this.props;
+		const { onSelectVideo, title, status, thumbnails, arquiveVideo, editVideoTitle } = this.props;
 		return (
-			<div style={styles.videoItemWrapper} onClick={status === 'done' ? onSelectVideo : undefined}>
+			<div style={styles.videoItemWrapper}>
 				<div style={styles.thumbnail} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
-					<div style={thumbnailHoover} />
+					<div style={thumbnailHoover}>
+						<IoMdTrash color="white" size={23} style={styles.thumbnailHooverIcons} onClick={arquiveVideo(title)} />
+						<FaEdit color="white" size={18} style={styles.thumbnailHooverIcons} onClick={editVideoTitle(title)} />
+					</div>
 					{
-						status==='encoding' && 
+						(status==='encoding' || status==='uploading') && 
 						<div style={styles.encoding}>
-							<p style={styles.encodingLabel}>encoding</p>
+							<p style={styles.encodingLabel}>{status}</p>
 							<ScaleLoader loading 
 								height={35}
 								heightUnit="px"
@@ -44,7 +51,7 @@ class VideoItem extends React.PureComponent<IVideoItemProps, IVideoItemState> {
 					}
 					{
 						status==='done' &&
-						<img style={styles.thumbnailImage} src={thumbnails ? thumbnails[0] : undefined} />
+						<img style={styles.thumbnailImage} src={thumbnails ? thumbnails[0] : undefined} onClick={onSelectVideo} />
 					}
 				</div>
 				<p style={styles.title}>{title}</p>
@@ -58,6 +65,7 @@ class VideoItem extends React.PureComponent<IVideoItemProps, IVideoItemState> {
 			thumbnailHoover: {
 				...state.thumbnailHoover,
 				width: '30%',
+				opacity: 1
 			}
 		}))
 	}
@@ -68,6 +76,7 @@ class VideoItem extends React.PureComponent<IVideoItemProps, IVideoItemState> {
 			thumbnailHoover: {
 				...state.thumbnailHoover,
 				width: '0',
+				opacity: 0
 			}
 		}))
 	}

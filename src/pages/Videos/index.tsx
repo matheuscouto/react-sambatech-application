@@ -2,27 +2,14 @@ import * as React from 'react';
 import { Stylesheet } from 'declarations';
 import { VideoList, VideoOnDisplay } from '../../components';
 
-interface IState {
-	videoOnDisplay?: string;
-}
-
-class Videos extends React.PureComponent<{}, IState> {
-	public state:IState = {}
-
+class Videos extends React.PureComponent<{}> {
 	public render() {
-		const { videoOnDisplay } = this.state;
 		return(
 			<div style={styles.container}>
-				<VideoOnDisplay videoOnDisplay={videoOnDisplay} />
-				<VideoList onSelectVideo={this.onSelectVideo} />
+				<VideoOnDisplay />
+				<VideoList />
 			</div>
 		);
-	}
-
-	private onSelectVideo = (videoUrl: string) => () => {
-		this.setState({
-			videoOnDisplay: videoUrl
-		})
 	}
 }
 
