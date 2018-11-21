@@ -1,5 +1,7 @@
-import ExamplePage from './ExamplePage';
+import UploadPage from './Upload';
+import VideosPage from './Videos';
 
 export {
-	ExamplePage,
+	UploadPage,
+	VideosPage,
 };
