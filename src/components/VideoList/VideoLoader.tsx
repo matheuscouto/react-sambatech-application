@@ -2,8 +2,8 @@ import * as React from 'react';
 import ContentLoader from "react-content-loader";
 
 export default () => (
-  <div style={{display: 'flex'}}>
-    <div style={{width: 231, marginRight: 20}}>
+  <div style={{display: 'flex', flexWrap: 'wrap', justifyContent:'space-around', width: '100%'}}>
+    <div style={{width: 231, height: 192.797, maxHeight: 192.797, marginTop: 10}}>
       <ContentLoader 
         height={200}
         width={175}
@@ -15,7 +15,7 @@ export default () => (
         <rect width="231" height="104.8" />
       </ContentLoader>
     </div>
-    <div style={{width: 231, marginRight: 20}}>
+    <div style={{width: 231, height: 192.797, maxHeight: 192.797, marginTop: 10}}>
       <ContentLoader 
         height={200}
         width={175}
@@ -27,7 +27,7 @@ export default () => (
         <rect width="231" height="104.8" />
       </ContentLoader>
     </div>
-    <div style={{width: 231, marginRight: 20}}>
+    <div style={{width: 231, height: 192.797, maxHeight: 192.797, marginTop: 10}}>
       <ContentLoader 
         height={200}
         width={175}

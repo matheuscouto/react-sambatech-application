@@ -2,7 +2,8 @@ import { Stylesheet } from '../../../declarations';
 
 const styles:Stylesheet = {
 	videoOnDisplay: {
-		maxWidth: 'calc(100% - 20px)',
+		maxWidth: '100%',
+		maxHeight: 'calc(748px*9/16)',
 		height: 0,
 		marginBottom: 0,
 		borderRadius: 4,

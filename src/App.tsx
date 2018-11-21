@@ -27,6 +27,8 @@ const styles:Stylesheet = {
 		marginTop: '10%',
 		display: 'flex',
 		flexDirection: 'column',
-		alignItems: 'flex-start',
+    alignItems: 'flex-start',
+    width: '100%',
+    maxWidth: 748,
   },
 }

@@ -33,7 +33,7 @@ class Navbar extends React.Component<{location: string}, IState> {
   }
 
 	public componentDidMount() {
-    let currentSession = this.props.location.replace('/','')
+    let currentSession = this.props.location.replace('/','').split('/')[0]
     if(currentSession === '') {currentSession = 'upload'} 
 		this.setState((state) => ({
 			...state,
@@ -49,13 +49,12 @@ class Navbar extends React.Component<{location: string}, IState> {
   }
 
   public componentDidUpdate(oldProps: { location: string } ) {
-    if(this.props.location !== oldProps.location) {
+    let currentSession = this.props.location.replace('/','').split('/')[0]
+    if(currentSession === '') {currentSession = 'upload'} 
+    let previousSession = oldProps.location.replace('/','').split('/')[0]
+    if(previousSession === '') {previousSession = 'upload'} 
 
-      let currentSession = this.props.location.replace('/','')
-      if(currentSession === '') {currentSession = 'upload'} 
-      let previousSession = oldProps.location.replace('/','')
-      if(previousSession === '') {previousSession = 'upload'} 
-
+    if(currentSession !== previousSession) {
       this.setState((state) => ({
         ...state,
         navItemStyles: {

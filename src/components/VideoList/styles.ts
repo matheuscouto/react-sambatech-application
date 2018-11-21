@@ -4,12 +4,13 @@ const styles:Stylesheet = {
 	videoList: {
 		display: 'flex',
 		flexWrap: 'wrap',
+		justifyContent: 'space-around'
 	},
 	videoItemWrapper: {
 		display: 'flex',
 		flexDirection: 'column',
 		marginBottom: 20,
-		marginRight: 20,
+		marginTop: 10,
 	},
 	thumbnail: {
 		display: 'flex',
@@ -41,7 +42,7 @@ const styles:Stylesheet = {
 	},
 	title: {
 		fontSize: 15,
-		fontWeight: 'lighter'
+		fontWeight: 300
 	},
 	encoding: {
 		display: 'flex',
@@ -61,8 +62,8 @@ const styles:Stylesheet = {
 	},
 	thumbnailImage: {
 		position: 'absolute',
-		width: '100%',
-		height: 'auto',
+		width: 'auto',
+		height: '100%',
 		cursor: 'pointer',
 	},
 	modal: {
@@ -71,7 +72,8 @@ const styles:Stylesheet = {
 	},
 	modalTitle: {
 		marginRight: 32,
-		marginTop: 2
+		marginTop: 2,
+		fontWeight: 500
 	},
 	modalOptionsWrapper: {
 		display: 'flex',
@@ -102,7 +104,7 @@ const styles:Stylesheet = {
 		borderColor: 'gray',
 		boxSizing: 'border-box',
 		paddingLeft: 10,
-		fontSize: 14,
+		fontSize: 16,
 	},
 	videoListWrapper: {
 		display: 'flex',
@@ -121,6 +123,16 @@ const styles:Stylesheet = {
 	paginationButtonsPage: {
 		fontSize: 12,
     marginRight: 20,
+	},
+	playHoover: {
+		position: "absolute",
+		left: '50%',
+		top: '50%',
+		transform: 'translate(-50%, -50%)',
+		zIndex: 1,
+		opacity: 0,
+		transition: "all 0.2s ease-out",
+		cursor: 'pointer',
 	}
 }
 

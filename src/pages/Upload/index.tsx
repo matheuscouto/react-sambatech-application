@@ -33,6 +33,7 @@ const styles:Stylesheet = {
 		flexDirection: 'column',
 		alignItems: 'flex-start',
 		justifyContent: 'center',
+		width: '100%',
 	}
 };
 

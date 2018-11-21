@@ -85,11 +85,6 @@ export class VideoList extends React.PureComponent<IMapStateToProps & IMapDispat
     const { pagination, isLoadingVideos, isArquivingVideo, arquivingVideoTitle, arquivingVideoId, newVideoTitle, isEditingVideoTitle, editingVideoTitleId } = this.state;
 		return(
       <div style={styles.videoListWrapper}>
-        <div style={styles.paginationButtonsWrapper}>
-          <IoIosArrowBack size={23} onClick={pagination.current > 1 ? this.getPage('previous') : undefined} style={styles.paginationButton} color={pagination.current === 1 ? 'rgb(170, 170, 170)' : undefined} />
-          <p style={styles.paginationButtonsPage}>{this.state.pagination.current} / {this.state.pagination.total}</p>
-          <IoIosArrowForward size={23} onClick={pagination.current < pagination.total ? this.getPage('next') : undefined} style={styles.paginationButton} color={pagination.current >= pagination.total ? 'rgb(170, 170, 170)' : undefined} />
-        </div>
         <div style={styles.videoList}>
           {
             isLoadingVideos
@@ -121,6 +116,12 @@ export class VideoList extends React.PureComponent<IMapStateToProps & IMapDispat
             <p style={styles.modalOptionConfirm} onClick={this.handleEditVideoTitle(editingVideoTitleId!)}>CONFIRM</p>
           </div>
         </Modal>
+        </div>
+
+        <div style={styles.paginationButtonsWrapper}>
+          <IoIosArrowBack size={23} onClick={pagination.current > 1 ? this.getPage('previous') : undefined} style={styles.paginationButton} color={pagination.current === 1 ? 'rgb(170, 170, 170)' : undefined} />
+          <p style={styles.paginationButtonsPage}>{this.state.pagination.current} / {this.state.pagination.total}</p>
+          <IoIosArrowForward size={23} onClick={pagination.current < pagination.total ? this.getPage('next') : undefined} style={styles.paginationButton} color={pagination.current >= pagination.total ? 'rgb(170, 170, 170)' : undefined} />
         </div>
       </div>
 		);
