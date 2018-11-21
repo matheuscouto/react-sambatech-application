@@ -6,10 +6,11 @@ import { RouteComponentProps } from 'react-router-dom';
 class Videos extends React.PureComponent<RouteComponentProps<{ id?: string }>> {
 	public render() {
 		const { id } = this.props.match.params;
+		const { push } = this.props.history;
 		return(
 			<div style={styles.container}>
 				<VideoOnDisplay />
-				<VideoList videoIdToDisplay={id} history={this.props.history} />
+				<VideoList videoIdToDisplay={id} pushHistory={push} />
 			</div>
 		);
 	}
