@@ -23,7 +23,7 @@ class VideoItem extends React.PureComponent<IVideoItemProps, IVideoItemState> {
 		const { thumbnailHoover } = this.state;
 		const { onSelectVideo, title, status, thumbnails } = this.props;
 		return (
-			<div style={styles.videoItemWrapper} onClick={status === 'done' ? onSelectVideo : undefined}>
+			<div style={styles.videoItemWrapper}>
 				<div style={styles.thumbnail} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
 					<div style={thumbnailHoover} />
 					{
@@ -44,7 +44,7 @@ class VideoItem extends React.PureComponent<IVideoItemProps, IVideoItemState> {
 					}
 					{
 						status==='done' &&
-						<img style={styles.thumbnailImage} src={thumbnails ? thumbnails[0] : undefined} />
+						<img style={styles.thumbnailImage} src={thumbnails ? thumbnails[0] : undefined} onClick={onSelectVideo} />
 					}
 				</div>
 				<p style={styles.title}>{title}</p>
