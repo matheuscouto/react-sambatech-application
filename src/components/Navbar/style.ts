@@ -2,12 +2,12 @@ import { Stylesheet } from "declarations";
 
 const navbarTransitions:Stylesheet = {
 	upload: {
-		width: 61,
-		marginLeft: 0,
+		width: 56,
+		marginLeft: 1,
 	},
 	videos: {
-		width: 57,
-		marginLeft: 71,
+		width: 53,
+		marginLeft: 67,
 	},
 }
 
