@@ -5,13 +5,12 @@ import VideoItem from './VideoItem';
 import { assign } from 'lodash';
 import { database } from '../../services/firebase';
 import Modal from 'react-responsive-modal';
-import { removeVideoFromDisplay, putVideoOnDisplay, selectSelectVideoOnDisplay } from 'src/store/app/state';
+import { removeVideoFromDisplay, putVideoOnDisplay, selectSelectVideoOnDisplay } from '../../store/app/state';
 import { Dispatch } from 'redux';
-import { IRootState } from 'src/store';
+import { IRootState } from '../../store';
 import { connect } from 'react-redux';
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
 import VideoLoader from './VideoLoader';
-import { History } from 'history';
 
 interface IState {
   isLoadingVideos: boolean;
@@ -29,7 +28,7 @@ interface IState {
   
 }
 
-class VideoList extends React.PureComponent<IMapStateToProps & IMapDispatchToProps & { videoIdToDisplay?: string, history: History<any> }, IState> {
+export class VideoList extends React.PureComponent<IMapStateToProps & IMapDispatchToProps & { videoIdToDisplay?: string, pushHistory: (path: string) => void }, IState> {
   public state:IState = {
     isLoadingVideos: true,
     videoList: [],
@@ -167,7 +166,7 @@ class VideoList extends React.PureComponent<IMapStateToProps & IMapDispatchToPro
 
   private handlePutVideoOnDisplay = (videoId: string, videoUrl: string) => () => {
     this.props.putVideoOnDisplay(videoUrl, videoId)
-    this.props.history.push(`/videos/${videoId}`)
+    this.props.pushHistory(`/videos/${videoId}`)
   }
 
   private handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,20 +1,34 @@
 import * as React from 'react';
 import styles from './styles';
 import { connect } from 'react-redux';
-import { selectSelectVideoOnDisplay } from 'src/store/app/state';
-import { IRootState } from 'src/store';
+import { selectSelectVideoOnDisplay } from '../../store/app/state';
+import { IRootState } from '../../store';
 
 interface IState {
 	videoOnDisplayStyle: React.CSSProperties;
 }
 
-class Videos extends React.PureComponent<IMapStateToProps, IState> {
+export class VideoOnDisplay extends React.PureComponent<IMapStateToProps, IState> {
 	
 	public state = {
 		videoOnDisplayStyle: styles.videoOnDisplay,
 	}
 
 	private videoPlayer:any;
+
+	public componentDidMount() {
+		const { videoOnDisplay } = this.props;
+		if(videoOnDisplay) {
+			this.setState(state => ({
+				...state,
+				videoOnDisplayStyle: {
+					...state.videoOnDisplayStyle,
+					height: 'calc(733px*9/16)',
+					marginBottom: 60,
+				},
+			}))
+		}
+	}
 
 	public componentDidUpdate(prevProps: IMapStateToProps, prevState: IState) {
 		const { videoOnDisplay } = this.props;
@@ -73,5 +87,5 @@ const mapStateToProps = (state: IRootState): IMapStateToProps => ({
 	videoOnDisplay: selectSelectVideoOnDisplay(state)
 });
 
-export default connect(mapStateToProps)(Videos);
+export default connect(mapStateToProps)(VideoOnDisplay);
 

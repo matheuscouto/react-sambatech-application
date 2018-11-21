@@ -9,7 +9,7 @@ class App extends React.Component<RouteComponentProps> {
   public render() {
     return (
       <div style={styles.container}>
-        <Navbar {...this.props} />
+        <Navbar location={this.props.location.pathname} />
         <Switch>
           <Route exact path='/' component={UploadPage} />
           <Route path='/videos/:id?' component={VideosPage} />

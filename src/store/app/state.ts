@@ -3,7 +3,7 @@ import actionCreatorFactory from 'typescript-fsa';
 import { reducerWithInitialState } from 'typescript-fsa-reducers/dist';
 import { filter, mergeMap, map, catchError, debounceTime } from 'rxjs/operators'
 import { of } from 'rxjs';
-import { uploadFiles$ } from 'src/services/api';
+import { uploadFiles$ } from '../../services/api';
 import { Epic, Selector } from '..';
 
 // ACTIONS

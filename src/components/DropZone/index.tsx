@@ -3,7 +3,7 @@ import Dropzone from 'react-dropzone';
 import styles from './styles';
 import Circle from 'react-circle';
 import { IoIosCloudUpload, IoIosCheckmark } from 'react-icons/io';
-import { cancelUpload } from 'src/services/api';
+import { cancelUpload } from '../../services/api';
 import Modal from 'react-responsive-modal';
 
 interface IProps {
