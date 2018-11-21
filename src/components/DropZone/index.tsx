@@ -91,24 +91,24 @@ class DropZoneComponent extends React.PureComponent<IProps, IState> {
 				maxSize={1024 * 1000 * 1000 * 5} // Maximum filesize is 5gb
 				disabled={!!this.props.uploadProgress || isTypingVideoTitle || didDropUnsuportedFileType}
       >
-        <p style={callToAction}>Drop to upload your files</p>
+        <p style={callToAction}>Drop to upload files</p>
         <IoIosCloudUpload size='35%' style={uploadIcon} />
         <IoIosCheckmark size='30%' style={doneIcon} />
         <div style={circleWrapper}>
           <Circle progress={uploadProgress} lineWidth="8" size="35%" showPercentage={false} showPercentageSymbol={false} animate={true} progressColor="#2DCC70" />
         </div>
         <div style={pickFile}>
-          <p style={{fontSize: 12, cursor: 'arrow'}}>or &nbsp;</p>
-          <p style={{color: '#059BE2', fontSize: 12, fontWeight: 600, cursor: 'pointer'}}>select a file manually</p>
+          <p style={{fontSize: 14, cursor: 'arrow'}}>or &nbsp;</p>
+          <p style={{color: '#059BE2', fontSize: 14, fontWeight: 600, cursor: 'pointer'}}>select a file manually</p>
         </div>
         <div style={cancelUploadButton}>
-          <p style={{color: '#FF5C54', fontSize: 12, fontWeight: 600, cursor: 'pointer'}}  onClick={this.handleCancel}>cancel</p>
+          <p style={{color: '#FF5C54', fontSize: 14, fontWeight: 600, cursor: 'pointer'}}  onClick={this.handleCancel}>cancel</p>
         </div>
         <div style={sendAgain}>
-          <p style={{color: '#059BE2', fontSize: 12, fontWeight: 600, cursor: 'pointer'}} onClick={this.handleReset}>send another one</p>
+          <p style={{color: '#059BE2', fontSize: 14, fontWeight: 600, cursor: 'pointer'}} onClick={this.handleReset}>send another one</p>
         </div>
 				<Modal open={isTypingVideoTitle} styles={styles.modal} onClose={this.handleCloseVideoTitleModal} center showCloseIcon={false} closeOnEsc={false} closeOnOverlayClick={false} >
-					<h2 style={styles.modalTitle}>What's going to be the new title?</h2>
+					<h2 style={styles.modalTitle}>What's going to be the title?</h2>
 					<input style={styles.editInput} value={filename} onChange={this.handleInputChange} />
 					<div style={styles.modalOptionsWrapper}>
 						<p style={styles.modalOptionConfirm} onClick={this.handleSubmitFiles}>CONFIRM</p>
