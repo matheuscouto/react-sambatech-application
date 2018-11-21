@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styles from './styles';
 import { IoMdTrash } from 'react-icons/io';
+import { FaEdit } from 'react-icons/fa';
 
 import { ScaleLoader } from 'react-spinners';
 
@@ -33,9 +34,9 @@ class VideoItem extends React.PureComponent<IVideoItemProps, IVideoItemState> {
 						<FaEdit color="white" size={18} style={styles.thumbnailHooverIcons} onClick={editVideoTitle(title)} />
 					</div>
 					{
-						status==='encoding' && 
+						(status==='encoding' || status==='uploading') && 
 						<div style={styles.encoding}>
-							<p style={styles.encodingLabel}>encoding</p>
+							<p style={styles.encodingLabel}>{status}</p>
 							<ScaleLoader loading 
 								height={35}
 								heightUnit="px"
